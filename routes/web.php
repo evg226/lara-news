@@ -22,4 +22,22 @@ Route::get('/', function () {
 });
 
 
+/*
+ * pages ДЗ №1
+ */
 
+Route::get('/users', function () {
+    return "Welcome! You have to login! ";
+});
+
+Route::get('/users/{name}', function (string $name) {
+    return "Welcome $name!";
+})->where('name','[A-Za-z]+');
+
+Route::get('/news', function () {
+    return "List of news";
+});
+
+Route::get('/news/{id}', function (int $id) {
+    return "You see news number $id!";
+})->where('id','[0-9]+');
