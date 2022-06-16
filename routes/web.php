@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
@@ -18,26 +20,38 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+})->name('home');
+
+Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+    Route::get('/', [CategoriesController::class,'show'] );
+    Route::get('/{categoryId}', [NewsController::class,'show'] )
+    ->name('item');
 });
 
-
-/*
- * pages ДЗ №1
- */
-
-Route::get('/users', function () {
-    return "Welcome! You have to login! ";
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/', function (){
+        return view('admin.index');
+    });
+    Route::resource('/categories', AdminCategoryController::class)
+        ->name('index','categories');
+    Route::resource('/news', AdminNewsController::class)
+        ->name('index','news');;
 });
 
-Route::get('/users/{name}', function (string $name) {
-    return "Welcome $name!";
-})->where('name','[A-Za-z]+');
+Route::get('/news', [NewsController::class, 'show'])
+    ->name('news');
 
-Route::get('/news', function () {
-    return "List of news";
+Route::get('/news/{id}', [NewsController::class, 'showById'])
+    ->where('id', '\d+')
+    ->name('news.item');
+
+Route::group(['prefix'=>'user','as'=>'user.'],function(){
+    Route::get('/',function (){
+        return "User page";
+    })
+        ->name('login');
+    Route::get('/login',[UserController::class,'login'])
+        ->name('login');
 });
 
-Route::get('/news/{id}', function (int $id) {
-    return "You see news number $id!";
-})->where('id','[0-9]+');
