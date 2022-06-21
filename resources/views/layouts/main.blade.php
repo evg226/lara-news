@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@section('title')GB Laravel @show</title>
+    <title>@section('title')
+            GB Laravel
+        @show</title>
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
     <style>
@@ -61,46 +63,18 @@
 
 </head>
 <body>
+<div class="d-flex flex-column min-vh-100">
+<x-header></x-header>
 
-<header>
-    <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-md-7 py-4">
-                    <h4 class="text-white">About</h4>
-                    <p class="text-white">About this application</p>
-                </div>
-            </div>
-        </div>
+<main class="album py-5 bg-light flex-grow-1">
+    <div class="container">
+        @yield('content')
     </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <a href="{{route('home')}}" class="navbar-brand d-flex align-items-center">
-                <strong>GB laravel</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </div>
-</header>
-
-<main>
-
-    <div class="album py-5 bg-light">
-        <div class="container">
-            @yield('content')
-        </div>
-    </div>
-
 </main>
 
 <x-footer></x-footer>
-
-
+</div>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-
-
 </body>
 </html>
 

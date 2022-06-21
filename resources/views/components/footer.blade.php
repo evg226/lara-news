@@ -1,9 +1,11 @@
-<footer class="text-muted py-5">
+<footer class="text-secondary py-3 bg-secondary bg-opacity-10  ">
     <div class="container">
-        <p class="float-end mb-1">
-            <a href="#">Back to top</a>
-        </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.2/getting-started/introduction/">getting started guide</a>.</p>
+        <small>
+            <p class="float-end">
+                <a href="#" class="text-decoration-none">Back to top</a>
+            </p>
+            <p class="mb-1">GB Laravel leaning course</p>
+            <p class="mb-1">Copyright Evg226 {{date('Y')}}</p>
+        </small>
     </div>
 </footer>
