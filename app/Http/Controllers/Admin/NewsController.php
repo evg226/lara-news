@@ -24,7 +24,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+            return view('admin.news.create');
+//        return response()->download('robots.txt');
     }
 
     /**
@@ -35,7 +36,10 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+           'title'=>['required']
+        ]);
+        return response()->json($request->only(['title','author','description','status']));
     }
 
     /**
@@ -57,7 +61,7 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

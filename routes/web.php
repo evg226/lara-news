@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\OrderController;
 
 use \App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -53,4 +55,16 @@ Route::group(['prefix'=>'user','as'=>'user.'],function(){
     Route::get('/login',[UserController::class,'login'])
         ->name('login');
 });
+
+Route::get('/feedback', [FeedbackController::class, 'index'])
+    ->name('feedback');
+
+Route::get('/order', [OrderController::class, 'index'])
+    ->name('order');
+
+Route::post('/feedback', [FeedbackController::class, 'store'])
+    ->name('feedback');
+
+Route::post('/order', [OrderController::class, 'store'])
+    ->name('order');
 

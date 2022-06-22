@@ -28,13 +28,17 @@
             </tr>
             </thead>
             <tbody>
+            @forelse($categories as $category)
             <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
+                <td>{{$category['id']}}</td>
+                <td>{{$category['title']}}</td>
+                <td>{{$category['description']}}</td>
+                <td>{{$category['image']}}</td>
             </tr>
-
+            @empty
+                <h4>No any item of category</h4>
+                <p>Please create a new category</p>
+            @endforelse
             </tbody>
         </table>
     </div>

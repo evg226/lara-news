@@ -2,19 +2,19 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{route('admin.')}}">
+                <a class="nav-link @if (request()->routeIs('admin.')) active @endif" aria-current="page" href="{{route('admin.')}}">
                     <span data-feather="home" class="align-text-bottom"></span>
                     Home admin
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.categories')}}">
+                <a class="nav-link @if (request()->routeIs('admin.categories*')) active @endif" href="{{route('admin.categories')}}">
                     <span data-feather="file" class="align-text-bottom"></span>
                     Categories
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.news')}}">
+                <a class="nav-link @if (request()->routeIs('admin.news*')) active @endif" href="{{route('admin.news')}}">
                     <span data-feather="shopping-cart" class="align-text-bottom"></span>
                     News
                 </a>
