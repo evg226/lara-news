@@ -11,21 +11,5 @@
     @push('jsAdmin')
         <script>console.log('Welcome to admin page js console')</script>
     @endpush
-{{--    <div class="table-responsive">--}}
-{{--        <table class="table table-striped table-sm">--}}
-{{--            <thead>--}}
-{{--            <tr>--}}
-{{--                <th scope="col">Entities</th>--}}
-{{--            </tr>--}}
-{{--            </thead>--}}
-{{--            <tbody>--}}
-{{--            <tr>--}}
-{{--                <td><a href="<?=route('admin.categories')?>" class="btn btn-sm">Categories >></a></td>--}}
-{{--            </tr>--}}
-{{--            <tr>--}}
-{{--                <td><a href="<?=route('admin.news')?>" class="btn btn-sm">News >></a></td>--}}
-{{--            </tr>--}}
-{{--            </tbody>--}}
-{{--        </table>--}}
-{{--    </div>--}}
+
 @endsection

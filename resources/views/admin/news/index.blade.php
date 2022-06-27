@@ -9,7 +9,8 @@
 @endsection
 
 @section('content')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">{{$pageName}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
@@ -26,21 +27,32 @@
                 <th scope="col">Author</th>
                 <th scope="col">Description</th>
                 <th scope="col">Created at</th>
-                <th scope="col">Category ID</th>
+                <th scope="col">Cat&nbsp;ID</th>
                 <th scope="col">Image path</th>
+                <th scope="col">Admin</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-            </tr>
-
+            @forelse($newsList as $news)
+                <tr>
+                    <td>{{$news->id}}</td>
+                    <td>{{$news->title}}</td>
+                    <td>{{$news->author}}</td>
+                    <td>{{$news->description}}</td>
+                    <td class="text-nowrap">{{$news->published_at}}</td>
+                    <td class="text-center">{{$news->category_id}}</td>
+                    <td>{{$news->image}}</td>
+                    <td class="text-nowrap align-middle py-0">
+                        <a href="{{route('admin.news.edit',['news'=>$news->id])}}"
+                           class="btn text-primary px-1 py-0 h-100 text-decoration-none">
+                            <small>Edit</small>
+                        </a>
+                        <a href="javascript:;" class="btn py-0 h-100 text-danger p-1 text-decoration-none"><small>Del</small></a>
+                    </td>
+                </tr>
+            @empty
+                <h3>No any items to view</h3>
+            @endforelse
             </tbody>
         </table>
     </div>

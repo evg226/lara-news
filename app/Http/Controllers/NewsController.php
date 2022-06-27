@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -9,13 +10,15 @@ class NewsController extends Controller
 
     public function show(int $categoryId = null)
     {
-        $news = $this->getNews($categoryId);
-        return view('news.list', ['newsList' => $news]);
+        $model = app(News::class);
+        $newsList = $model->getNewsByCategoryId($categoryId);
+        return view('news.list', ['newsList' => $newsList]);
     }
 
     public function showById(int $id)
     {
-        $newsItem = $this->getNewsById($id);
+        $model = app(News::class);
+        $newsItem = $model->getNewsById($id);
         return view('news.item', ['newsItem' => $newsItem]);
     }
 }
