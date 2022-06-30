@@ -9,20 +9,13 @@
         <h2>Order for API Data</h2>
         <p class="lead">Please fill up fields bellow to make order for API information</p>
     </div>
-
-    @if ($errors->any())
-        @foreach($errors->all() as $err)
-            <x-alert type="danger" :message="$err"></x-alert>
-        @endforeach
-    @endif
-
     <div class="row g-5">
         <form class="needs-validation" novalidate method="post" action="{{route('order')}}">
             @csrf
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="firstName" class="form-label">First name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="{{old('firstName')}}" required>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="{{old('firstname')}}" required>
                     <div class="invalid-feedback">
                         Valid first name is required.
                     </div>
@@ -30,7 +23,7 @@
 
                 <div class="col-sm-6">
                     <label for="lastName" class="form-label">Last name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="{{old('lastName')}}" required>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="{{old('lastname')}}" required>
                     <div class="invalid-feedback">
                         Valid last name is required.
                     </div>

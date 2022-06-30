@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OrderController;
 
-use \App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,33 +28,40 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
-    Route::get('/', [CategoriesController::class,'show'] );
-    Route::get('/{categoryId}', [NewsController::class,'show'] )
-    ->name('item');
+Route::group(['prefix' => 'categories', 'as' => 'categories'], function () {
+    Route::get('/', [CategoryController::class, 'index']);
+    Route::group(['prefix' => '{category}'], function () {
+        Route::get('/', [CategoryController::class, 'show'])
+            ->name('.show');
+        Route::get('/news', [CategoryController::class, 'show'])
+            ->name('.news');
+        Route::get('/news/{news}', [NewsController::class, 'show'])
+            ->name('.news.item');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', AdminIndexController::class);
     Route::resource('/categories', AdminCategoryController::class)
-        ->name('index','categories');
+        ->name('index', 'categories');
     Route::resource('/news', AdminNewsController::class)
-        ->name('index','news');;
+        ->name('index', 'news');
+    Route::resource('/feedbacks', AdminFeedbackController::class)
+        ->name('index', 'feedbacks');
+    Route::resource('/orders', AdminOrderController::class)
+        ->name('index', 'orders');
 });
-
-Route::get('/news', [NewsController::class, 'show'])
-    ->name('news');
 
 Route::get('/news/{id}', [NewsController::class, 'showById'])
     ->where('id', '\d+')
     ->name('news.item');
 
-Route::group(['prefix'=>'user','as'=>'user.'],function(){
-    Route::get('/',function (){
+Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('/', function () {
         return "User page";
     })
         ->name('login');
-    Route::get('/login',[UserController::class,'login'])
+    Route::get('/login', [UserController::class, 'login'])
         ->name('login');
 });
 

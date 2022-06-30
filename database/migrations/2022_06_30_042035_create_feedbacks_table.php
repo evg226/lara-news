@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->string('title',255);
-            $table->string('slug',255);
-            $table->string('author',255)->default('Admin');
-            $table->string('image',255);
-            $table->text('description')->nullable();
-            $table->text('content');
-            $table->enum('status',['Draft','Active','Blocked'])->default('Draft');
+            $table->string('firstname',50);
+            $table->string('lastname',50);
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('feedbacks');
     }
 };

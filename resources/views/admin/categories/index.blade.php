@@ -1,16 +1,12 @@
 @extends('layouts.admin')
 
-@php
-    $pageName='Categories List';
-@endphp
-
 @section('title')
-    @parent {{$pageName}}
+    @parent - Categories
 @endsection
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{$pageName}}</h1>
+        <h1 class="h2">Categories </h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
                 <a href="{{route('admin.categories.create')}}" class="btn btn-sm btn-outline-secondary">Create category</a>
@@ -33,7 +29,7 @@
             @forelse($categories as $category)
             <tr>
                 <td>{{$category->id}}</td>
-                <td>{{$category->title}}</td>
+                <td>{{$category->title}}({{$category->news_count}})</td>
                 <td>{{$category->description}}</td>
 {{--                <td>{{$category->image}}</td>--}}
                 <td>{{$category->created_at}}</td>
@@ -51,5 +47,6 @@
             @endforelse
             </tbody>
         </table>
+        {{$categories->links()}}
     </div>
 @endsection

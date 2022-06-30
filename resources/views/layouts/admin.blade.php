@@ -1,10 +1,11 @@
-
 <!doctype html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GB Lara @section('title') Admin @show</title>
+    <title>GB Lara @section('title')
+            Admin
+        @show</title>
 
     <link href='{{asset("css/bootstrap.min.css")}}' rel="stylesheet">
 
@@ -73,12 +74,16 @@
         <x-admin.sidebar></x-admin.sidebar>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="pt-4">
+                @include('inc.messages')
+            </div>
             @yield('content')
-         </main>
+
+        </main>
     </div>
 </div>
 
-<script src='{{asset("js/bootstrap.bundle.min.js")}}' ></script>
+<script src='{{asset("js/bootstrap.bundle.min.js")}}'></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
 @stack('jsAdmin')
 </body>

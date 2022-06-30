@@ -10,10 +10,10 @@
             <h1 class="display-4 fw-normal">{{$newsItem->title}}</h1>
             <p class="lead fw-normal"></p>
         </div>
-        <small class="shadow-sm row row-cols-sm-2 pb-2 justify-content-between">
-            <a class="col-sm-3 p-0"
-               href="{{route('categories.item',['categoryId'=>$newsItem->category_id])}}">
-                View category: {{ $newsItem->category_title}}
+        <small class="shadow-sm row row-cols-sm-2 pb-2 justify-content-between align-items-center">
+            <a class="col-sm-3 p-0 btn btn-outline-secondary text-decoration-none py-2"
+               href="{{route('categories.show',['category'=>$category->id])}}">
+                << Back to category: {{ $category->title}}
             </a>
             <div class="col-sm-9 d-flex flex-column flex-sm-row justify-content-sm-end">
                 <span class="text-nowrap pe-2">Author: {{$newsItem->author}}</span>

@@ -34,7 +34,6 @@ class NewsSeeder extends Seeder
                 'description' => $faker->sentence(5),
                 'content'=>$faker->sentences(50,true),
                 'category_id' =>$faker->randomDigitNotZero(),
-                'published_at'=>$faker->date()
             ];
         }
         return $news;

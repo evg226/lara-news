@@ -7,16 +7,16 @@
                     <h5>Home</h5>
                     <small>Return to Home page</small>
                 </a>
-                <a href="{{route('categories.')}}" class="col  py-2 text-decoration-none text-secondary
-                @if(request()->routeIs('categories.')) text-light @endif">
+                <a href="{{route('categories')}}" class="col  py-2 text-decoration-none text-secondary
+                @if(request()->routeIs('categories')) text-light @endif">
                     <h5>Categories</h5>
                     <small>View News Categories</small>
                 </a>
-                <a href="{{route('news')}}" class="col  py-2 text-decoration-none text-secondary
-                @if(request()->routeIs('news')) text-light @endif">
-                    <h5>News</h5>
-                    <small>Read All News</small>
-                </a>
+{{--                <a href="{{route('news')}}" class="col  py-2 text-decoration-none text-secondary--}}
+{{--                @if(request()->routeIs('news')) text-light @endif">--}}
+{{--                    <h5>News</h5>--}}
+{{--                    <small>Read All News</small>--}}
+{{--                </a>--}}
                 <a href="{{route('feedback')}}" class="col  py-2 text-decoration-none text-secondary
                 @if(request()->routeIs('feedback')) text-light @endif">
                     <h5>Feedback</h5>

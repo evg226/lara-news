@@ -68,6 +68,10 @@
 
 <main class="album py-5 bg-light flex-grow-1">
     <div class="container">
+        <div class="pt-4">
+            @include('inc.messages')
+        </div>
+
         @yield('content')
     </div>
 </main>

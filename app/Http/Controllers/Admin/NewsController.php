@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\News;
+use App\QueryBuilders\QueryBuilderNews;
 use Illuminate\Http\Request;
+use Psy\Util\Str;
 
 class NewsController extends Controller
 {
@@ -13,11 +16,9 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(QueryBuilderNews $queryBuilderNews)
     {
-        $model = app(News::class);
-        $news = $model->getNews();
-        return view('admin.news.index',['newsList'=>$news]);
+        return view('admin.news.index', ['newsList' => $queryBuilderNews->getNews()]);
     }
 
     /**
@@ -27,8 +28,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
-//        return response()->download('robots.txt');
+        $categories = Category::all();
+        return view('admin.news.create', ['categories' => $categories]);
     }
 
     /**
@@ -40,9 +41,31 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required']
+            'title' => ['required'],
+            'image' => ['required'],
+            'content' => ['required'],
+            'author' => ['required']
         ]);
-        return response()->json($request->only(['title', 'author', 'description', 'status']));
+        $validated = $request->only([
+            'title',
+            'author',
+            'image',
+            'description',
+            'content',
+            'category_id',
+            'status'
+        ]);
+        $validated['slug'] = \Str::slug($validated['title']);
+        $news = News::create($validated);
+        if ($news) {
+            return
+                redirect()->route('admin.news')
+                    ->with('success', 'News added successfully');
+        } else {
+            return
+                back()
+                    ->with('error', 'Error. Not created');
+        }
     }
 
     /**
@@ -59,24 +82,53 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param News $news
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-
+        $categories = Category::all();
+        return view('admin.news.edit', [
+            'news' => $news,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
-        //
+        $request->validate([
+            'title' => ['required'],
+            'image' => ['required'],
+            'content' => ['required'],
+            'author' => ['required']
+        ]);
+        $validated = $request->only([
+            'title',
+            'author',
+            'image',
+            'description',
+            'content',
+            'category_id',
+            'status'
+        ]);
+        $validated['slug'] = \Str::slug($validated['title']);
+        $news = $news->fill($validated);
+        if ($news->save()) {
+            return
+                redirect()->route('admin.news')
+                    ->with('success', 'News updated successfully');
+        } else {
+            return
+                back()
+                    ->with('error', 'Error. Not updated');
+        }
     }
 
     /**
@@ -85,7 +137,7 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(News $news)
     {
         //
     }

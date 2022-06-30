@@ -9,20 +9,13 @@
         <h2>Feedback</h2>
         <p class="lead">Please fill up form bellow and press send button</p>
     </div>
-    @if ($errors->any())
-        @foreach($errors->all() as $err)
-            <x-alert type="danger" :message="$err"></x-alert>
-        @endforeach
-
-    @endif
-
     <div class="row g-5">
         <form class="needs-validation" novalidate method="post" action="{{route('feedback')}}">
             @csrf
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="firstName" class="form-label">First name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="" required value="{{old('firstname')}}">
+                    <input type="text" class="form-control" id="firstName" name="firstname" placeholder="" required value="{{old('firstname')}}">
                     <div class="invalid-feedback">
                         Valid first name is required.
                     </div>
@@ -30,7 +23,7 @@
 
                 <div class="col-sm-6">
                     <label for="lastName" class="form-label">Last name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" required value="{{old('lastname')}}">
+                    <input type="text" class="form-control" id="lastName" name="lastname" placeholder="" required value="{{old('lastname')}}">
                     <div class="invalid-feedback">
                         Valid last name is required.
                     </div>

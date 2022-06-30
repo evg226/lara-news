@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Feedback;
+use App\QueryBuilders\QueryBuilderFeedbacks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use mysql_xdevapi\Exception;
@@ -16,17 +19,18 @@ class FeedbackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'firstName'=>['required'],
-            'description'=>['required']
+            'firstname' => ['required'],
+            'lastname' => ['required'],
+            'description' => ['required']
         ]);
-        $data=$request->only(['firstName','lastname','description']);
-        $data['date']=date('Ymd');
-        try {
-            Storage::disk('local')->append('feedbacks.txt', implode('-', $data));
-        } catch (\Exception $error){
-            return  response($error->getMessage(),500);
+        $validated = $request->only(['firstname', 'lastname', 'description']);
+        $feedback=Feedback::create($validated);
+        if($feedback){
+            return redirect()
+                ->route('feedback')
+                ->with('success','your feedback has been sent successfully!');
         }
+        back()->with('error','Error. Please try again');
 
-        return "success";
     }
 }

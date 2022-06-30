@@ -5,9 +5,10 @@
 
 @section('content')
     <h1 class="mb-5 text-center">Categories List</h1>
+    {{$categories->links()}}
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-3">
         @forelse ($categories as $category)
-            <a href="{{route('categories.item',['categoryId'=>$category->id])}}"
+            <a href="{{route('categories.news',['category'=>$category->id])}}"
                class="col">
                 <div class="card shadow-sm h-100">
                     <img src="{{$category->image}}" class="card-img-top" alt="{{$category->title}} image"

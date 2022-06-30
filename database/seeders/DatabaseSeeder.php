@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             NewsSeeder::class,
             SourcesSeeder::class,
-            ExternalsSeeder::class
+            ExternalsSeeder::class,
+            FeedbackSeeder::class,
+            OrderSeeder::class
         ]);
     }
 }
