@@ -86,7 +86,6 @@
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
-                    {{--"_token":{{csrf_token()}}--}}
                     'X-CSRF-TOKEN':
                         document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }

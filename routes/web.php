@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::group(['middleware'=>'auth'], function (){
             ->name('index', 'feedbacks');
         Route::resource('/orders', AdminOrderController::class)
             ->name('index', 'orders');
+        Route::resource('/users',  AdminUserController::class)
+            ->name('index', 'users');
     });
 });
 

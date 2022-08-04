@@ -8,7 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use phpDocumentor\Reflection\Types\Collection;
 
-class QueryBuilderCategories
+class QueryBuilderCategories implements QueryBuilder
 {
     public function getBuilder(): Builder
     {

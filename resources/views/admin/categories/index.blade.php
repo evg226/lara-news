@@ -14,6 +14,7 @@
         </div>
     </div>
     <div class="table-responsive">
+        {{$categories->links()}}
         <table class="table table-striped table-sm">
             <thead>
             <tr>
@@ -47,6 +48,5 @@
             @endforelse
             </tbody>
         </table>
-        {{$categories->links()}}
     </div>
 @endsection

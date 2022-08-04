@@ -6,7 +6,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Feedback;
 
-class QueryBuilderFeedbacks
+class QueryBuilderFeedbacks implements QueryBuilder
 {
     public function getBuilder(): Builder
     {
