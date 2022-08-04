@@ -18,8 +18,8 @@ class QueryBuilderNews implements QueryBuilder
     public function getNews(): LengthAwarePaginator
     {
         return
-            News::select(['*'])
-                ->with('category')
+            News::
+                with('category')
                 ->paginate(10);
     }
 

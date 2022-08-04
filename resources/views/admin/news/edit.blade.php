@@ -52,10 +52,11 @@
             <div class="forms-group row">
                 <div class="forms-group mb-3 col col-12 col-sm-6">
                     <label for="status" class="form-label">Status</label>
+                    {{$news->status}}
                     <select id="status" class="form-control" name="status">
-                        <option @if($news->status)==='Draft') selected @endif>Draft</option>
-                        <option @if($news->status)==='Active') selected @endif>Active</option>
-                        <option @if($news->status)==='Blocked') selected @endif>Blocked</option>
+                        <option @if($news->status==='Draft') selected @endif>Draft</option>
+                        <option @if($news->status==='Active') selected @endif>Active</option>
+                        <option @if($news->status==='Blocked') selected @endif>Blocked</option>
                     </select>
                 </div>
                 <div class="forms-group mb-3 col col-12 col-sm-6">

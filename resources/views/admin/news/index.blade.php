@@ -35,20 +35,27 @@
             </thead>
             <tbody>
             @forelse($newsList as $news)
-                <tr>
+                <tr id="news_{{$news->id}}">
                     <td>{{$news->id}}</td>
                     <td>{{$news->category->title}}</td>
                     <td>{{$news->title}}</td>
                     <td>{{$news->author}}</td>
                     <td>{{$news->description}}</td>
-                    <td class="text-nowrap">{{$news->created_at}}</td>
+                    <td class="text-nowrap">
+                        @if($news->created_at)
+                            {{$news->created_at->format('Y-m-d')}}
+                        @endif
+                    </td>
                     <td class="text-center">{{$news->status}}</td>
                     <td class="text-nowrap align-middle py-0">
                         <a href="{{route('admin.news.edit',['news'=>$news->id])}}"
                            class="btn text-primary px-1 py-0 h-100 text-decoration-none">
                             <small>Edit</small>
                         </a>
-                        <a href="javascript:;" class="btn py-0 h-100 text-danger p-1 text-decoration-none"><small>Del</small></a>
+                        <a href="javascript:;"
+                           class="delete btn py-0 h-100 text-danger p-1 text-decoration-none"
+                           rel="{{$news->id}}"
+                        ><small>Del</small></a>
                     </td>
                 </tr>
             @empty
@@ -58,3 +65,34 @@
         </table>
     </div>
 @endsection
+
+@push('jsAdmin')
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll(".delete").forEach(item => {
+                const id = item.getAttribute('rel');
+                item.addEventListener('click', () => {
+                    if (confirm('Do you want to delete ' + id + "?")) {
+                        send('/admin/news/' + id).then(
+                            document.querySelector(`#news_${id}`).remove()
+                            // location.reload()
+                        )
+                    }
+                })
+            })
+        })
+
+        const send = async (url) => {
+            const response = await fetch(url, {
+                method: "DELETE",
+                headers: {
+                    {{--"_token":{{csrf_token()}}--}}
+                    'X-CSRF-TOKEN':
+                        document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            const result = await response.json();
+            return result.ok;
+        }
+    </script>
+@endpush

@@ -16,7 +16,8 @@ class Order extends Model
         'lastname',
         'description',
         'email',
-        'phone'
+        'phone',
+        'is_saw'
     ];
 
 }

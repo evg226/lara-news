@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsStoreRequest;
+use App\Http\Requests\NewsUpdateRequest;
 use App\Models\Category;
 use App\Models\News;
 use App\QueryBuilders\QueryBuilderNews;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Psy\Util\Str;
 
 class NewsController extends Controller
@@ -38,33 +41,19 @@ class NewsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsStoreRequest $request)
     {
-        $request->validate([
-            'title' => ['required'],
-            'image' => ['required'],
-            'content' => ['required'],
-            'author' => ['required']
-        ]);
-        $validated = $request->only([
-            'title',
-            'author',
-            'image',
-            'description',
-            'content',
-            'category_id',
-            'status'
-        ]);
+        $validated = $request->validated();
         $validated['slug'] = \Str::slug($validated['title']);
         $news = News::create($validated);
         if ($news) {
             return
                 redirect()->route('admin.news')
-                    ->with('success', 'News added successfully');
+                    ->with('success', trans('message.admin.news.create.success'));
         } else {
             return
                 back()
-                    ->with('error', 'Error. Not created');
+                    ->with('error', trans('message.admin.news.update.fail'));
         }
     }
 
@@ -101,33 +90,19 @@ class NewsController extends Controller
      * @param News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(NewsUpdateRequest $request, News $news)
     {
-        $request->validate([
-            'title' => ['required'],
-            'image' => ['required'],
-            'content' => ['required'],
-            'author' => ['required']
-        ]);
-        $validated = $request->only([
-            'title',
-            'author',
-            'image',
-            'description',
-            'content',
-            'category_id',
-            'status'
-        ]);
+        $validated=$request->validated();
         $validated['slug'] = \Str::slug($validated['title']);
         $news = $news->fill($validated);
         if ($news->save()) {
             return
                 redirect()->route('admin.news')
-                    ->with('success', 'News updated successfully');
+                    ->with('success',trans('message.admin.news.update.success'));
         } else {
             return
                 back()
-                    ->with('error', 'Error. Not updated');
+                    ->with('error', trans('message.admin.news.update.fail'));
         }
     }
 
@@ -139,6 +114,12 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        try {
+            $news->delete();
+            return response()->json(['ok']);
+        } catch (\Exception $exception){
+            Log::error($exception->getMessage());
+            return response()->json(['error'=>$exception->getMessage()],400);
+        }
     }
 }

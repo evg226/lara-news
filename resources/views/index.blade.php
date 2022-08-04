@@ -8,7 +8,6 @@
             <li><a href="{{route('categories')}}">Categories</a></li>
 {{--            <li><a href="{{route('news')}}">All news</a></li>--}}
             <li><a href="{{route('admin.')}}">Admin panel</a></li>
-            <li><a href="{{route('user.login')}}">Login</a></li>
             <li><a href="{{route('feedback')}}">Leave Feedback</a></li>
             <li><a href="{{route('order')}}">Make Order for info</a></li>
         </ul>

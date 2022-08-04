@@ -51,8 +51,7 @@
                 </td>
             </tr>
             @empty
-                <h4>No any item of category</h4>
-                <p>Please create a new category</p>
+                <h4>No any item of orders</h4>
             @endforelse
             </tbody>
         </table>

@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index(QueryBuilderOrders $queryBuilderOrders)
     {
-        return view('admin.orders.index',['orders'=>$queryBuilderOrders->getAll()]);
+        return view('admin.orders.index', ['orders' => $queryBuilderOrders->getAll()]);
     }
 
     /**
@@ -32,7 +32,7 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,7 +54,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(int $id): \Illuminate\Http\Response
@@ -71,16 +71,17 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $validated['is_saw']=true;
-        $order=$order->fill($validated);
+
+        $validated['is_saw'] = true;
+        $order = $order->fill($validated);
         $order->save();
-        return redirect()->route('admin.orders.show',['order'=>$order]);
+        return redirect()->route('admin.orders.show', ['order' => $order]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

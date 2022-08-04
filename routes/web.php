@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('index');
 })->name('home');
 
 Route::group(['prefix' => 'categories', 'as' => 'categories'], function () {
@@ -40,30 +40,23 @@ Route::group(['prefix' => 'categories', 'as' => 'categories'], function () {
     });
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::get('/', AdminIndexController::class);
-    Route::resource('/categories', AdminCategoryController::class)
-        ->name('index', 'categories');
-    Route::resource('/news', AdminNewsController::class)
-        ->name('index', 'news');
-    Route::resource('/feedbacks', AdminFeedbackController::class)
-        ->name('index', 'feedbacks');
-    Route::resource('/orders', AdminOrderController::class)
-        ->name('index', 'orders');
+Route::group(['middleware'=>'auth'], function (){
+    Route::group(['prefix' => 'admin', 'middleware'=>'admin', 'as' => 'admin.'], function () {
+        Route::get('/', AdminIndexController::class);
+        Route::resource('/categories', AdminCategoryController::class)
+            ->name('index', 'categories');
+        Route::resource('/news', AdminNewsController::class)
+            ->name('index', 'news');
+        Route::resource('/feedbacks', AdminFeedbackController::class)
+            ->name('index', 'feedbacks');
+        Route::resource('/orders', AdminOrderController::class)
+            ->name('index', 'orders');
+    });
 });
 
 Route::get('/news/{id}', [NewsController::class, 'showById'])
     ->where('id', '\d+')
     ->name('news.item');
-
-Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-    Route::get('/', function () {
-        return "User page";
-    })
-        ->name('login');
-    Route::get('/login', [UserController::class, 'login'])
-        ->name('login');
-});
 
 Route::get('/feedback', [FeedbackController::class, 'index'])
     ->name('feedback');
@@ -77,3 +70,6 @@ Route::post('/feedback', [FeedbackController::class, 'store'])
 Route::post('/order', [OrderController::class, 'store'])
     ->name('order');
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
